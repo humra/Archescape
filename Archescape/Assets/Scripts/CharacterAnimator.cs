@@ -5,19 +5,41 @@ using UnityEngine.AI;
 
 public class CharacterAnimator : MonoBehaviour {
 
-    private Animator animator;
+    public AnimationClip replacableAttackAnimation;
+    public AnimationClip[] defaultAttackAnimationSet;
+
+    protected AnimationClip[] currentAttackAnimationSet;
+    protected Animator animator;
     private NavMeshAgent agent;
+    protected CharacterCombat combat;
+    protected AnimatorOverrideController overrideController;
 
     [SerializeField]
     private float dampTime = 0.1f;
 
-	void Start () {
+	protected virtual void Start () {
         agent = GetComponent<NavMeshAgent>();
         animator = GetComponentInChildren<Animator>();
+        combat = GetComponent<CharacterCombat>();
+
+        overrideController = new AnimatorOverrideController(animator.runtimeAnimatorController);
+        animator.runtimeAnimatorController = overrideController;
+        currentAttackAnimationSet = defaultAttackAnimationSet;
+
+        combat.OnAttack += OnAttack;
 	}
 	
-	void Update () {
+	protected virtual void Update () {
         float speedPercent = agent.velocity.magnitude / agent.speed;
         animator.SetFloat("speedPercent", speedPercent, dampTime, Time.deltaTime);
+
+        animator.SetBool("inCombat", combat.inCombat);
 	}
+
+    protected virtual void OnAttack()
+    {
+        animator.SetTrigger("attack");
+        int attackIndex = Random.Range(0, currentAttackAnimationSet.Length);
+        overrideController[replacableAttackAnimation.name] = currentAttackAnimationSet[attackIndex];
+    }
 }
