@@ -9,11 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab88cebf4636a4b4d8fad520ac940df3, type: 3}
-  m_Name: CrudeSword
+  m_Name: Platelegs
   m_EditorClassIdentifier: 
-  itemName: CrudeSword
-  icon: {fileID: 21300000, guid: 267040cb06571d74795d291caa247361, type: 3}
+  itemName: Platelegs
+  icon: {fileID: 21300000, guid: 3a0528267428da744995ce42a9709a6d, type: 3}
   isDefaultItem: 0
-  equipSlot: 3
+  equipSlot: 2
+  mesh: {fileID: 137748814627464604, guid: 9b1b0fa9f1c4fa64f8fa3efce2366175, type: 2}
+  coveredMeshRegions: 00000000
   armourModifier: 0
   damageModifier: 5

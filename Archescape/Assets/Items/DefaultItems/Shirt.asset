@@ -9,12 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab88cebf4636a4b4d8fad520ac940df3, type: 3}
-  m_Name: BasicHelmet
+  m_Name: Shirt
   m_EditorClassIdentifier: 
-  itemName: BasicHelmet
-  icon: {fileID: 21300000, guid: 56f57e98cf6c87a44998dcea50e3bc13, type: 3}
-  isDefaultItem: 0
-  equipSlot: 0
-  mesh: {fileID: 137561326591386866, guid: b7dda4aba3b83c94b8cce4955c74c59c, type: 2}
-  armourModifier: 1
+  itemName: Shirt
+  icon: {fileID: 0}
+  isDefaultItem: 1
+  equipSlot: 1
+  mesh: {fileID: 137167994329932210, guid: 5d38fc5fbeba57a42b755d50bbb5d80d, type: 2}
+  coveredMeshRegions: 0100000002000000
+  armourModifier: 0
   damageModifier: 0
