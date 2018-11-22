@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
+
 
 public class GameManager : MonoBehaviour {
 
@@ -16,6 +18,11 @@ public class GameManager : MonoBehaviour {
 	}
 	
 	void Update () {
+
+        if(EventSystem.current.IsPointerOverGameObject())
+        {
+            return;
+        }
 
         if (Input.GetMouseButtonDown(0))
         {
