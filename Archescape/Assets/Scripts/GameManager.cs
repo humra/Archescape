@@ -1,11 +1,10 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
 
-
 public class GameManager : MonoBehaviour {
 
-    Camera mainCam;
-    PlayerController player;
+    private Camera mainCam;
+    private PlayerController player;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -38,6 +37,8 @@ public class GameManager : MonoBehaviour {
 
     private void Action(RaycastHit hit)
     {
+        player.RemoveTarget();
+
         if(walkableMask == (walkableMask | 1 << hit.collider.gameObject.layer))
         {
             player.MoveToPoint(hit.point);
@@ -46,6 +47,7 @@ public class GameManager : MonoBehaviour {
         {
             Interactible interactible = hit.collider.gameObject.GetComponent<Interactible>();
             player.MoveToPoint(interactible.interactionTransform.position, interactible.radius);
+            player.SetTarget(interactible.gameObject);
             interactible.Interact();
         }
     }
