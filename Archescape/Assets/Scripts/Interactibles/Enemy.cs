@@ -3,6 +3,8 @@
 [RequireComponent(typeof(CharacterStats))]
 public class Enemy : Interactible {
 
+    public IEnemyHandler enemyHandler;
+
     private PlayerManager playerManager;
     private CharacterStats myStats;
 
@@ -10,6 +12,11 @@ public class Enemy : Interactible {
     {
         playerManager = PlayerManager.instance;
         myStats = GetComponent<CharacterStats>();
+    }
+
+    private void OnMouseDown()
+    {
+        enemyHandler.SetPlayerFocus(this.gameObject);
     }
 
     public override void Interact()
