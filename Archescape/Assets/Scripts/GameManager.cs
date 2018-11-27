@@ -8,8 +8,6 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
 
     [SerializeField]
     private LayerMask walkableMask;
-    [SerializeField]
-    private LayerMask interactibleMask;
 
     private void Awake()
     {
@@ -27,6 +25,21 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
         if(EventSystem.current.IsPointerOverGameObject())
         {
             return;
+        }
+
+        if (Input.GetMouseButtonDown(0))
+        {
+            Ray ray = mainCam.ScreenPointToRay(Input.mousePosition);
+            RaycastHit hit;
+
+            if (Physics.Raycast(ray, out hit))
+            {
+                if (walkableMask == (walkableMask | 1 << hit.collider.gameObject.layer))
+                {
+                    Debug.Log("Moving");
+                    player.MoveToPoint(hit.point);
+                }
+            }
         }
     }
 
