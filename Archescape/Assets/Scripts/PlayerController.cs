@@ -15,6 +15,12 @@ public class PlayerController : MonoBehaviour {
 		if(target != null)
         {
             FaceTarget();
+
+            if(target.GetComponent<Enemy>() != null)
+            {
+                agent.stoppingDistance = target.GetComponent<Enemy>().interactionRadius * 0.9f;
+                agent.SetDestination(target.transform.position);
+            }
         }
     }
 

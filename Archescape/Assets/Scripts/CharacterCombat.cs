@@ -54,7 +54,7 @@ public class CharacterCombat : MonoBehaviour {
 
     public void AttackHitAnimationEvent()
     {
-        opponentStats.TakeDamage(myStats.damage.GetValue());
+        //opponentStats.TakeDamage(myStats.damage.GetValue());
 
         if (opponentStats.currentHealth <= 0)
         {

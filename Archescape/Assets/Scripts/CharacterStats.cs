@@ -3,32 +3,18 @@
 public class CharacterStats : MonoBehaviour {
 
     public int maxHealth = 10;
-    public int currentHealth
-    {
-        get;
-        private set;
-    }
-    public Stat damage;
-    public Stat armour;
+    public int currentHealth;
+    public int damage;
+    public int armour;
+    public float attackSpeed = 1f;
 
     private void Awake()
     {
         currentHealth = maxHealth;
     }
 
-    private void Update()
-    {
-        if(Input.GetKeyDown(KeyCode.T))
-        {
-            TakeDamage(10);
-        }
-    }
-
     public void TakeDamage(int damageAmount)
     {
-        damageAmount -= armour.GetValue();
-        damageAmount = Mathf.Clamp(damageAmount, 0, int.MaxValue);
-
         currentHealth -= damageAmount;
         Debug.Log(transform.name + " takes " + damageAmount + " damage.");
 

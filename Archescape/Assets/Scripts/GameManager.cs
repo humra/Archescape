@@ -5,6 +5,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
 
     private Camera mainCam;
     private PlayerController player;
+    private CombatManager combatManager;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -18,6 +19,8 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
     void Start () {
         mainCam = Camera.main;
         player = FindObjectOfType<PlayerController>();
+        combatManager = GetComponent<CombatManager>();
+        combatManager.playerStats = player.GetComponent<PlayerStats>();
 	}
 	
 	void Update () {
@@ -36,8 +39,10 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
             {
                 if (walkableMask == (walkableMask | 1 << hit.collider.gameObject.layer))
                 {
-                    Debug.Log("Moving");
+                    //Debug.Log("Moving");
                     player.MoveToPoint(hit.point);
+                    player.RemoveTarget();
+                    DisengagePlayerCombat();
                 }
             }
         }
@@ -72,6 +77,22 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
     {
         player.SetTarget(enemy);
     }
+
+    public void EngageCombat(CharacterStats enemyStats)
+    {
+        combatManager.enemyStats = enemyStats;
+        combatManager.playerBeingAttacked = true;
+    }
+
+    public void EngagePlayerCombat()
+    {
+        combatManager.enemyBeingAttacked = true;
+    }
+
+    private void DisengagePlayerCombat()
+    {
+        combatManager.enemyBeingAttacked = false;
+    }
 }
 
 public interface IItemHandler
@@ -82,4 +103,6 @@ public interface IItemHandler
 public interface IEnemyHandler
 {
     void SetPlayerFocus(GameObject enemy);
+    void EngageCombat(CharacterStats enemyStats);
+    void EngagePlayerCombat();
 }

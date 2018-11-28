@@ -9,7 +9,7 @@ public class ItemPickup : Interactible {
 
     private void OnMouseDown()
     {
-        itemHandler.MoveToItemInteractionPointLocation(transform, radius);
+        itemHandler.MoveToItemInteractionPointLocation(transform, interactionRadius);
         toBePickedUp = true;
     }
 

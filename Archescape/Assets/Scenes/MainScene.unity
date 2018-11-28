@@ -1765,7 +1765,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b7d333232732642b7e3becf45d3049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combat: {fileID: 408277801}
+  combat: {fileID: 0}
 --- !u!1 &381955922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: bd4b5db5f48124a5bba473b348e43b25,
@@ -1943,7 +1943,6 @@ GameObject:
   - component: {fileID: 408277795}
   - component: {fileID: 408277798}
   - component: {fileID: 408277800}
-  - component: {fileID: 408277801}
   - component: {fileID: 408277799}
   m_Layer: 0
   m_Name: Player
@@ -2060,23 +2059,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 100
-  damage:
-    baseValue: 3
-  armour:
-    baseValue: 0
---- !u!114 &408277801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 408277793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d917ebaa87f8bf24989798e05b2c5992, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSpeed: 1
-  attackDelay: 0.5
+  currentHealth: 0
+  damage: 1
+  armour: 0
+  attackSpeed: 2
 --- !u!1 &411834023
 GameObject:
   m_ObjectHideFlags: 0
@@ -4957,7 +4943,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d2774bd5c261439df0ef2b9b6e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  interactionRadius: 0.5
   interactionTransform: {fileID: 920240436}
   item: {fileID: 11400000, guid: b1b0c73188b7c2046ab4beca29cf18e5, type: 2}
 --- !u!65 &920240433
@@ -5247,7 +5233,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81b7d333232732642b7e3becf45d3049, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  combat: {fileID: 1541905466}
+  combat: {fileID: 0}
 --- !u!1001 &1035061487
 Prefab:
   m_ObjectHideFlags: 0
@@ -5503,6 +5489,7 @@ GameObject:
   - component: {fileID: 1147950216}
   - component: {fileID: 1147950217}
   - component: {fileID: 1147950218}
+  - component: {fileID: 1147950219}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -5524,9 +5511,6 @@ MonoBehaviour:
   walkableMask:
     serializedVersion: 2
     m_Bits: 512
-  interactibleMask:
-    serializedVersion: 2
-    m_Bits: 1024
 --- !u!4 &1147950215
 Transform:
   m_ObjectHideFlags: 0
@@ -5582,6 +5566,21 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   player: {fileID: 408277793}
+--- !u!114 &1147950219
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1147950213}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4c89a566e8b1bb24aa5d4c5d63b6d697, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerStats: {fileID: 0}
+  enemyStats: {fileID: 0}
+  playerBeingAttacked: 0
+  enemyBeingAttacked: 0
 --- !u!1 &1152042377
 GameObject:
   m_ObjectHideFlags: 0
@@ -5660,7 +5659,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d2774bd5c261439df0ef2b9b6e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  interactionRadius: 0.2
   interactionTransform: {fileID: 1161857351}
   item: {fileID: 11400000, guid: 74476f9cb05f4e748bc17c577aeb4701, type: 2}
 --- !u!65 &1161857353
@@ -6633,7 +6632,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d2774bd5c261439df0ef2b9b6e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  interactionRadius: 0.2
   interactionTransform: {fileID: 1365895158}
   item: {fileID: 11400000, guid: c9e0402b16a640c4bb3d099eeb0baacb, type: 2}
 --- !u!65 &1365895160
@@ -7101,7 +7100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d2774bd5c261439df0ef2b9b6e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  interactionRadius: 0.3
   interactionTransform: {fileID: 1499063272}
   item: {fileID: 11400000, guid: dd8edeed3311bd243b26bce89869bb6b, type: 2}
 --- !u!65 &1499063269
@@ -7215,13 +7214,11 @@ GameObject:
   - component: {fileID: 1541905459}
   - component: {fileID: 1541905461}
   - component: {fileID: 1541905462}
-  - component: {fileID: 1541905463}
   - component: {fileID: 1541905464}
   - component: {fileID: 1541905465}
-  - component: {fileID: 1541905466}
   - component: {fileID: 1541905467}
   m_Layer: 10
-  m_Name: Enemy
+  m_Name: Skeleton
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7290,18 +7287,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
---- !u!114 &1541905463
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1541905458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9b379d06c31b2104ebf09151f7e0491f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  lookRadius: 7
 --- !u!114 &1541905464
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7313,8 +7298,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a0540b1bc8d98c44881a13e8158cf5c4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 2
+  interactionRadius: 2
   interactionTransform: {fileID: 1541905460}
+  lookRadius: 7
 --- !u!114 &1541905465
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7327,23 +7313,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxHealth: 1000
-  damage:
-    baseValue: 5
-  armour:
-    baseValue: 1
---- !u!114 &1541905466
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1541905458}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d917ebaa87f8bf24989798e05b2c5992, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  attackSpeed: 0.5
-  attackDelay: 0.5
+  currentHealth: 0
+  damage: 3
+  armour: 1
+  attackSpeed: 1
 --- !u!114 &1541905467
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8585,7 +8558,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ac1d2774bd5c261439df0ef2b9b6e47a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  radius: 1
+  interactionRadius: 0.5
   interactionTransform: {fileID: 1676327784}
   item: {fileID: 11400000, guid: d59b5c6d25ad522418926caa096a9283, type: 2}
 --- !u!1001 &1725521215
@@ -10142,6 +10115,10 @@ Prefab:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: 344c1941204599646bcc36dfeb394717, type: 2}
+    - target: {fileID: 100066, guid: 444ef9a7015ede94ebd9741401650773, type: 3}
+      propertyPath: m_Name
+      value: SkeletonGFX
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 444ef9a7015ede94ebd9741401650773, type: 3}
   m_IsPrefabAsset: 0
