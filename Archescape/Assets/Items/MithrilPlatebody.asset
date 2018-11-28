@@ -9,13 +9,13 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ab88cebf4636a4b4d8fad520ac940df3, type: 3}
-  m_Name: MithrilSword
+  m_Name: MithrilPlatebody
   m_EditorClassIdentifier: 
-  itemName: MithrilSword
-  icon: {fileID: 21300000, guid: 9ea9d230707762047be3a35cb1ba830f, type: 3}
+  itemName: MithrilPlatebody
+  icon: {fileID: 21300000, guid: ac35f57f39e44d7459b2e32561a61fc4, type: 3}
   isDefaultItem: 0
-  equipSlot: 3
-  mesh: {fileID: 0}
-  coveredMeshRegions: 
-  armourModifier: 0
-  damageModifier: 5
+  equipSlot: 1
+  mesh: {fileID: 137161329380072988, guid: 645c28558c39dff4ebaa608599a4bd7d, type: 2}
+  coveredMeshRegions: 0100000002000000
+  armourModifier: 10
+  damageModifier: 0
