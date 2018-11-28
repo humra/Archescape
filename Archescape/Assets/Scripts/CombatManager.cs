@@ -39,6 +39,13 @@ public class CombatManager : MonoBehaviour {
         }
     }
 
+    public void StopAllCombat()
+    {
+        playerBeingAttacked = false;
+        enemyBeingAttacked = false;
+        enemyStats = null;
+    }
+
     public void ResetTimestamps()
     {
         playerAttackTimestamp = Time.time;

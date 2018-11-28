@@ -1,7 +1,8 @@
 ﻿using UnityEngine;
 using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
+public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler {
 
     private Camera mainCam;
     private PlayerController player;
@@ -12,13 +13,14 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
 
     private void Awake()
     {
+        player = FindObjectOfType<PlayerController>();
+        player.GetComponent<PlayerStats>().deathHandler = this;
         InjectInterfaceIntoInteractibles();
-        InjectInterfaceIntoEnemies();
+        InjectEnemyDependencies();
     }
 
     void Start () {
         mainCam = Camera.main;
-        player = FindObjectOfType<PlayerController>();
         combatManager = GetComponent<CombatManager>();
         combatManager.playerStats = player.GetComponent<PlayerStats>();
 	}
@@ -39,7 +41,6 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
             {
                 if (walkableMask == (walkableMask | 1 << hit.collider.gameObject.layer))
                 {
-                    //Debug.Log("Moving");
                     player.MoveToPoint(hit.point);
                     player.RemoveTarget();
                     DisengagePlayerCombat();
@@ -58,13 +59,15 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
         }
     }
 
-    private void InjectInterfaceIntoEnemies()
+    private void InjectEnemyDependencies()
     {
         Enemy[] enemies = FindObjectsOfType<Enemy>();
 
         foreach(Enemy enemy in enemies)
         {
             enemy.enemyHandler = this;
+            enemy.target = player.transform;
+            enemy.GetComponent<CharacterStats>().deathHandler = this;
         }
     }
 
@@ -93,6 +96,18 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler {
     {
         combatManager.enemyBeingAttacked = false;
     }
+
+    public void EnemyDeath(GameObject deadEnemy)
+    {
+        combatManager.StopAllCombat();
+        DestroyImmediate(deadEnemy);
+    }
+
+    public void PlayerDeath()
+    {
+        combatManager.StopAllCombat();
+        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+    }
 }
 
 public interface IItemHandler
@@ -105,4 +120,10 @@ public interface IEnemyHandler
     void SetPlayerFocus(GameObject enemy);
     void EngageCombat(CharacterStats enemyStats);
     void EngagePlayerCombat();
+}
+
+public interface IDeathHandler
+{
+    void EnemyDeath(GameObject deadEnemy);
+    void PlayerDeath();
 }

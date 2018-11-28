@@ -7,6 +7,7 @@ public class CharacterStats : MonoBehaviour {
     public int damage;
     public int armour;
     public float attackSpeed = 1f;
+    public IDeathHandler deathHandler;
 
     private void Awake()
     {
@@ -16,7 +17,6 @@ public class CharacterStats : MonoBehaviour {
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-        Debug.Log(transform.name + " takes " + damageAmount + " damage.");
 
         if(currentHealth <= 0)
         {
@@ -26,6 +26,6 @@ public class CharacterStats : MonoBehaviour {
 
     public virtual void Die()
     {
-        Debug.Log(transform.name + " died");
+        deathHandler.EnemyDeath(gameObject);
     }
 }

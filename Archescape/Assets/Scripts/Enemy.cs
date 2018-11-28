@@ -5,24 +5,16 @@ using UnityEngine.AI;
 public class Enemy : Interactible {
 
     public IEnemyHandler enemyHandler;
-
     public float lookRadius = 10f;
+    public Transform target;
 
-    private Transform target;
     private NavMeshAgent agent;
-    //private CharacterCombat combat;
-
-    //private PlayerManager playerManager;
     private CharacterStats myStats;
 
     private void Start()
     {
-        //playerManager = PlayerManager.instance;
         myStats = GetComponent<CharacterStats>();
-
         agent = GetComponent<NavMeshAgent>();
-        target = PlayerManager.instance.player.transform;
-        //combat = GetComponent<CharacterCombat>();
     }
 
     private void Update()
@@ -35,11 +27,6 @@ public class Enemy : Interactible {
 
             if (distance <= agent.stoppingDistance)
             {
-                //CharacterStats targetStats = target.GetComponent<CharacterStats>();
-                //if(targetStats != null)
-                //{
-                //    combat.Attack(targetStats);
-                //}
                 enemyHandler.EngageCombat(myStats);
                 FaceTarget();
             }
@@ -50,17 +37,6 @@ public class Enemy : Interactible {
     {
         enemyHandler.SetPlayerFocus(this.gameObject);
         enemyHandler.EngagePlayerCombat();
-    }
-
-    public override void Interact()
-    {
-        base.Interact();
-        //CharacterCombat playerCombat = playerManager.player.GetComponent<CharacterCombat>();
-
-        //if(playerCombat != null)
-        //{
-        //    playerCombat.Attack(myStats);
-        //}
     }
 
     private void FaceTarget()
