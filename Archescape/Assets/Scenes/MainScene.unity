@@ -1685,7 +1685,6 @@ GameObject:
   m_Component:
   - component: {fileID: 779675642}
   - component: {fileID: 364232441}
-  - component: {fileID: 364232442}
   m_Layer: 0
   m_Name: PlayerGFX
   m_TagString: Untagged
@@ -1712,18 +1711,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &364232442
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 364232440}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b7d333232732642b7e3becf45d3049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combat: {fileID: 0}
 --- !u!1 &381955922 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 100000, guid: bd4b5db5f48124a5bba473b348e43b25,
@@ -1901,7 +1888,7 @@ GameObject:
   - component: {fileID: 408277795}
   - component: {fileID: 408277798}
   - component: {fileID: 408277800}
-  - component: {fileID: 408277799}
+  - component: {fileID: 408277801}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1983,28 +1970,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: bdf85c2212455c343826a0b5d93dee24, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &408277799
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 408277793}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b058472d54106fb42ae7158b8fc3db97, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  replacableAttackAnimation: {fileID: 7400014, guid: 73be9633513854604baae3aa06041436,
-    type: 3}
-  defaultAttackAnimationSet:
-  - {fileID: 7400014, guid: 73be9633513854604baae3aa06041436, type: 3}
-  overrideController: {fileID: 0}
-  dampTime: 0.1
-  weaponAnimations:
-  - weapon: {fileID: 11400000, guid: c9e0402b16a640c4bb3d099eeb0baacb, type: 2}
-    clips:
-    - {fileID: 7400016, guid: 73be9633513854604baae3aa06041436, type: 3}
-    - {fileID: 7400018, guid: 73be9633513854604baae3aa06041436, type: 3}
 --- !u!114 &408277800
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -2021,6 +1986,18 @@ MonoBehaviour:
   damage: 1
   armour: 0
   attackSpeed: 2
+--- !u!114 &408277801
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 408277793}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc69b5d75af1fce41a3bba3e63ac590d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  dampTime: 0.1
 --- !u!1 &411834023
 GameObject:
   m_ObjectHideFlags: 0
@@ -5109,28 +5086,11 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 4169149439611984, guid: ce7e7865773b1c24daec1e97606d35ff,
     type: 2}
   m_PrefabInternal: {fileID: 1365476458}
---- !u!1 &1019788120 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 100066, guid: 444ef9a7015ede94ebd9741401650773,
-    type: 3}
-  m_PrefabInternal: {fileID: 2019145972}
 --- !u!4 &1019788121 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 400066, guid: 444ef9a7015ede94ebd9741401650773,
     type: 3}
   m_PrefabInternal: {fileID: 2019145972}
---- !u!114 &1019788122
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 0}
-  m_GameObject: {fileID: 1019788120}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 81b7d333232732642b7e3becf45d3049, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  combat: {fileID: 0}
 --- !u!1001 &1035061487
 Prefab:
   m_ObjectHideFlags: 0
@@ -6997,12 +6957,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: cc69b5d75af1fce41a3bba3e63ac590d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  replacableAttackAnimation: {fileID: 7400014, guid: 73be9633513854604baae3aa06041436,
-    type: 3}
-  defaultAttackAnimationSet:
-  - {fileID: 7400002, guid: 444ef9a7015ede94ebd9741401650773, type: 3}
-  - {fileID: 7400004, guid: 444ef9a7015ede94ebd9741401650773, type: 3}
-  overrideController: {fileID: 22100000, guid: 4e6cd0569b9091e4abfbbfd65b9344e4, type: 2}
   dampTime: 0.1
 --- !u!1001 &1551391568
 Prefab:
@@ -8195,7 +8149,7 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 4994520519764708, guid: ef89c8375de88e24bba5ed4cb949dd4d, type: 2}
       propertyPath: m_LocalPosition.y
-      value: 0.21
+      value: -0.07
       objectReference: {fileID: 0}
     - target: {fileID: 4994520519764708, guid: ef89c8375de88e24bba5ed4cb949dd4d, type: 2}
       propertyPath: m_LocalPosition.z
