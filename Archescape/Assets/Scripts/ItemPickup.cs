@@ -11,6 +11,12 @@ public class ItemPickup : Interactible {
     {
         itemHandler.MoveToItemInteractionPointLocation(transform, interactionRadius);
         toBePickedUp = true;
+
+        if(GetComponent<Collider>().bounds.Contains(itemHandler.GetPlayerPosition()))
+        {
+            PickUp();
+            toBePickedUp = false;
+        }
     }
 
     private void OnCollisionEnter(Collision collision)

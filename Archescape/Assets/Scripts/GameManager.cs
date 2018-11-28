@@ -2,11 +2,12 @@
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler {
+public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler {
 
     private Camera mainCam;
     private PlayerController player;
     private CombatManager combatManager;
+    private Inventory inventory;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -15,14 +16,19 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     {
         player = FindObjectOfType<PlayerController>();
         player.GetComponent<PlayerStats>().deathHandler = this;
+
         InjectInterfaceIntoInteractibles();
         InjectEnemyDependencies();
     }
 
     void Start () {
         mainCam = Camera.main;
+
         combatManager = GetComponent<CombatManager>();
         combatManager.playerStats = player.GetComponent<PlayerStats>();
+
+        inventory = GetComponent<Inventory>();
+        inventory.inventoryHandler = this;
 	}
 	
 	void Update () {
@@ -76,6 +82,11 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         player.MoveToPoint(interactionPointLocation.position, interactionStoppingDistance);
     }
 
+    public Vector3 GetPlayerPosition()
+    {
+        return player.transform.position;
+    }
+
     public void SetPlayerFocus(GameObject enemy)
     {
         player.SetTarget(enemy);
@@ -108,11 +119,18 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         combatManager.StopAllCombat();
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
+
+    public void ItemDropped(Item item)
+    {
+        GameObject newItem = (GameObject)Instantiate(Resources.Load("Equipment/" + item.itemName), player.transform.position, player.transform.rotation);
+        newItem.GetComponent<ItemPickup>().itemHandler = this;
+    }
 }
 
 public interface IItemHandler
 {
     void MoveToItemInteractionPointLocation(Transform interactionPointLocation, float interactionStoppingDistance);
+    Vector3 GetPlayerPosition();
 }
 
 public interface IEnemyHandler
@@ -126,4 +144,9 @@ public interface IDeathHandler
 {
     void EnemyDeath(GameObject deadEnemy);
     void PlayerDeath();
+}
+
+public interface IInventoryHandler
+{
+    void ItemDropped(Item item);
 }

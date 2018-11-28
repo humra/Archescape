@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
 public class Inventory : MonoBehaviour {
@@ -25,6 +24,7 @@ public class Inventory : MonoBehaviour {
 
     public List<Item> items = new List<Item>();
     public int inventorySpace = 20;
+    public IInventoryHandler inventoryHandler;
 
     public bool AddItem(Item newItem)
     {
@@ -50,5 +50,17 @@ public class Inventory : MonoBehaviour {
         {
             onItemChangedCallback.Invoke();
         }
+    }
+
+    public void DropItem(Item item)
+    {
+        items.Remove(item);
+
+        if (onItemChangedCallback != null)
+        {
+            onItemChangedCallback.Invoke();
+        }
+
+        inventoryHandler.ItemDropped(item);
     }
 }
