@@ -1,9 +1,11 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class InventorySlot : MonoBehaviour {
+public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler, IDropHandler, IBeginDragHandler {
 
     private Item item;
+    private Vector3 positionBeforeDrag;
 
     public Image icon;
     public Button removeButton;
@@ -39,5 +41,33 @@ public class InventorySlot : MonoBehaviour {
         }
 
         item.Use();
+    }
+
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        transform.position = Input.mousePosition;
+        Debug.Log("Dragging");
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+        transform.position = positionBeforeDrag;
+    }
+
+    public void OnDrop(PointerEventData eventData)
+    {
+        RectTransform inventory = GameObject.FindWithTag(TagRepository.inventoryPanel).GetComponent<RectTransform>();
+
+        if(!RectTransformUtility.RectangleContainsScreenPoint(inventory, Input.mousePosition))
+        {
+            Inventory.instance.DropItem(item);
+        }
+    }
+
+    public void OnBeginDrag(PointerEventData eventData)
+    {
+        positionBeforeDrag = transform.position;
+        Debug.Log("Drag start");
     }
 }
