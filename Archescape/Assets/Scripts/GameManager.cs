@@ -33,6 +33,16 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 	
 	void Update () {
 
+        //TESTING, REMOVE WHEN MENU IS IMPLEMENTED
+        if(Input.GetKeyDown(KeyCode.L))
+        {
+            AudioManager.instance.SetSoundtrackAudioVolume(10f);
+        }
+        else if(Input.GetKeyDown(KeyCode.K))
+        {
+            AudioManager.instance.SetSoundtrackAudioVolume(-10f);
+        }
+
         if(EventSystem.current.IsPointerOverGameObject())
         {
             return;
