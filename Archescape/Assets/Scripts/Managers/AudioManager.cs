@@ -22,11 +22,11 @@ public class AudioManager : MonoBehaviour {
 
     public void SetEnvironmentalAudioVolume(float newVolume)
     {
-        masterMixer.SetFloat("Environmental", newVolume);
+        masterMixer.SetFloat("Environmental", Mathf.Log(newVolume) * 20);
     }
 
     public void SetSoundtrackAudioVolume(float newVolume)
     {
-        masterMixer.SetFloat("Soundtrack", newVolume);
+        masterMixer.SetFloat("Soundtrack", Mathf.Log(newVolume) * 20);
     }
 }

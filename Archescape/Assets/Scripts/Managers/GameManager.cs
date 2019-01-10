@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler {
+public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler, IUIHandler {
 
     private Camera mainCam;
     private PlayerController player;
@@ -29,19 +29,11 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         inventory = GetComponent<Inventory>();
         inventory.inventoryHandler = this;
+
+        GetComponent<SettingsUI>().uiHandler = this;
 	}
 	
 	void Update () {
-
-        //TESTING, REMOVE WHEN MENU IS IMPLEMENTED
-        if(Input.GetKeyDown(KeyCode.L))
-        {
-            AudioManager.instance.SetSoundtrackAudioVolume(10f);
-        }
-        else if(Input.GetKeyDown(KeyCode.K))
-        {
-            AudioManager.instance.SetSoundtrackAudioVolume(-10f);
-        }
 
         if(EventSystem.current.IsPointerOverGameObject())
         {
@@ -135,7 +127,19 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         GameObject newItem = (GameObject)Instantiate(Resources.Load("Equipment/" + item.itemName), player.transform.position, player.transform.rotation);
         newItem.GetComponent<ItemPickup>().itemHandler = this;
     }
+
+    public void SetEnvironmentalVolume(float newValue)
+    {
+        AudioManager.instance.SetEnvironmentalAudioVolume(newValue);
+    }
+
+    public void SetSoundtrackVolume(float newValue)
+    {
+        AudioManager.instance.SetSoundtrackAudioVolume(newValue);
+    }
 }
+
+#region Interfaces
 
 public interface IItemHandler
 {
@@ -160,3 +164,11 @@ public interface IInventoryHandler
 {
     void ItemDropped(Item item);
 }
+
+public interface IUIHandler
+{
+    void SetEnvironmentalVolume(float newValue);
+    void SetSoundtrackVolume(float newValue);
+}
+
+#endregion
