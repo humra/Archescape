@@ -7,6 +7,9 @@ public class CombatManager : MonoBehaviour {
     public bool playerBeingAttacked = false;
     public bool enemyBeingAttacked = false;
 
+    public HealthBarUI playerHealthBarUI;
+    public HealthBarUI enemyHealthBarUI;
+
     private float playerAttackTimestamp;
     private float enemyAttackTimestamp;
 
@@ -25,6 +28,11 @@ public class CombatManager : MonoBehaviour {
 
             Debug.Log("Enemy takes " + damage + " damage");
 
+            if (damage != 0)
+            {
+                enemyHealthBarUI.SetHealthBarValue(enemyStats.GetHealthPercentage());
+            }
+
             playerAttackTimestamp = Time.time;
         }
         if (Time.time - enemyAttackTimestamp >= enemyStats.attackSpeed && playerBeingAttacked)
@@ -34,6 +42,11 @@ public class CombatManager : MonoBehaviour {
             playerStats.TakeDamage(damage);
 
             Debug.Log("Player takes " + damage + " damage");
+
+            if(damage != 0)
+            {
+                playerHealthBarUI.SetHealthBarValue(playerStats.GetHealthPercentage());
+            }
 
             enemyAttackTimestamp = Time.time;
         }
@@ -50,5 +63,31 @@ public class CombatManager : MonoBehaviour {
     {
         playerAttackTimestamp = Time.time;
         enemyAttackTimestamp = Time.time;
+    }
+
+    public void EnableEnemyHealthBar()
+    {
+        enemyHealthBarUI.gameObject.SetActive(true);
+    }
+
+    public void EnablePlayerHealthBar()
+    {
+        playerHealthBarUI.gameObject.SetActive(true);
+    }
+
+    public void DisableEnemyHealthBar()
+    {
+        if(enemyHealthBarUI != null)
+        {
+            enemyHealthBarUI.gameObject.SetActive(false);
+        }
+    }
+
+    public void DisablePlayerHealthBar()
+    {
+        if(playerHealthBarUI != null)
+        {
+            playerHealthBarUI.gameObject.SetActive(false);
+        }
     }
 }

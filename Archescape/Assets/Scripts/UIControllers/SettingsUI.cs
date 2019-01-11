@@ -11,14 +11,9 @@ public class SettingsUI : MonoBehaviour {
     public IUIHandler uiHandler;
     public GameObject settingsUI;
 
-    private void Start()
-    {
-        
-    }
-
     private void Update()
     {
-        if(Input.GetKeyDown(UIKeybindRepository.settings))
+        if(Input.GetKeyDown(UIKeybindRepository.pauseMenu))
         {
             settingsUI.SetActive(!settingsUI.activeSelf);
         }

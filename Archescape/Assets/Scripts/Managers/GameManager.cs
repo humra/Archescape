@@ -8,6 +8,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     private PlayerController player;
     private CombatManager combatManager;
     private Inventory inventory;
+    private HealthBarUI playerHealthBar;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -16,6 +17,8 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     {
         player = FindObjectOfType<PlayerController>();
         player.GetComponent<PlayerStats>().deathHandler = this;
+
+        playerHealthBar = player.GetComponentInChildren<HealthBarUI>();
 
         InjectInterfaceIntoInteractibles();
         InjectEnemyDependencies();
@@ -26,11 +29,14 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         combatManager = GetComponent<CombatManager>();
         combatManager.playerStats = player.GetComponent<PlayerStats>();
+        combatManager.playerHealthBarUI = player.GetComponentInChildren<HealthBarUI>();
+        combatManager.DisablePlayerHealthBar();
 
         inventory = GetComponent<Inventory>();
         inventory.inventoryHandler = this;
 
         GetComponent<SettingsUI>().uiHandler = this;
+        GetComponent<PauseMenuUI>().uiHandler = this;
 	}
 	
 	void Update () {
@@ -79,6 +85,8 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         }
     }
 
+    #region ItemInterface
+
     public void MoveToItemInteractionPointLocation(Transform interactionPointLocation, float interactionStoppingDistance)
     {
         player.MoveToPoint(interactionPointLocation.position, interactionStoppingDistance);
@@ -89,6 +97,10 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         return player.transform.position;
     }
 
+    #endregion
+
+    #region Combat
+
     public void SetPlayerFocus(GameObject enemy)
     {
         player.SetTarget(enemy);
@@ -98,17 +110,24 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     {
         combatManager.enemyStats = enemyStats;
         combatManager.playerBeingAttacked = true;
+        combatManager.EnablePlayerHealthBar();
     }
 
     public void EngagePlayerCombat()
     {
         combatManager.enemyBeingAttacked = true;
+        combatManager.enemyHealthBarUI = combatManager.enemyStats.GetComponentInChildren<HealthBarUI>();
     }
 
     private void DisengagePlayerCombat()
     {
         combatManager.enemyBeingAttacked = false;
+        combatManager.enemyHealthBarUI = null;
     }
+
+    #endregion
+
+    #region Death
 
     public void EnemyDeath(GameObject deadEnemy)
     {
@@ -122,11 +141,15 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 
+    #endregion
+
     public void ItemDropped(Item item)
     {
         GameObject newItem = (GameObject)Instantiate(Resources.Load("Equipment/" + item.itemName), player.transform.position, player.transform.rotation);
         newItem.GetComponent<ItemPickup>().itemHandler = this;
     }
+
+    #region UIHandling
 
     public void SetEnvironmentalVolume(float newValue)
     {
@@ -137,6 +160,13 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     {
         AudioManager.instance.SetSoundtrackAudioVolume(newValue);
     }
+
+    public void QuitGame()
+    {
+        Application.Quit();
+    }
+
+    #endregion
 }
 
 #region Interfaces
@@ -169,6 +199,7 @@ public interface IUIHandler
 {
     void SetEnvironmentalVolume(float newValue);
     void SetSoundtrackVolume(float newValue);
+    void QuitGame();
 }
 
 #endregion

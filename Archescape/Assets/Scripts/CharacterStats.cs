@@ -24,6 +24,11 @@ public class CharacterStats : MonoBehaviour {
         }
     }
 
+    public float GetHealthPercentage()
+    {
+        return currentHealth / (float)maxHealth;
+    }
+
     public virtual void Die()
     {
         deathHandler.EnemyDeath(gameObject);
