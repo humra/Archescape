@@ -60,6 +60,8 @@ public class EquipmentManager : MonoBehaviour {
         newMesh.rootBone = targetMesh.rootBone;
 
         currentMeshes[slotIndex] = newMesh;
+
+        InventoryEquipped.instance.EquipItem(newItem);
     }
 
     public Equipment Unequip(int slotIndex)

@@ -32,6 +32,10 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler, IDrop
         Inventory.instance.DropItem(item);
     }
 
+    public void OnRemoveEquippedItemButton()
+    {
+        InventoryEquipped.instance.UnequipItem(item);
+    }
 
     public void UseItem()
     {
@@ -43,11 +47,9 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler, IDrop
         item.Use();
     }
 
-
     public void OnDrag(PointerEventData eventData)
     {
         transform.position = Input.mousePosition;
-        Debug.Log("Dragging");
     }
 
     public void OnEndDrag(PointerEventData eventData)
@@ -68,6 +70,5 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler, IDrop
     public void OnBeginDrag(PointerEventData eventData)
     {
         positionBeforeDrag = transform.position;
-        Debug.Log("Drag start");
     }
 }

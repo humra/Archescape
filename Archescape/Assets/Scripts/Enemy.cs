@@ -10,6 +10,7 @@ public class Enemy : Interactible {
 
     private NavMeshAgent agent;
     private CharacterStats myStats;
+    private bool toBeAttacked = false;
 
     private void Start()
     {
@@ -31,12 +32,18 @@ public class Enemy : Interactible {
                 FaceTarget();
             }
         }
+
+        if(distance <= interactionRadius && toBeAttacked)
+        {
+            enemyHandler.EngagePlayerCombat(myStats);
+        }
     }
 
     private void OnMouseDown()
     {
         enemyHandler.SetPlayerFocus(this.gameObject);
-        enemyHandler.EngagePlayerCombat();
+        toBeAttacked = true;
+        enemyHandler.MoveToEnemyInteractionPointLocation(interactionTransform, interactionRadius);
     }
 
     private void FaceTarget()

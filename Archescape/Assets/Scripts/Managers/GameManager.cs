@@ -2,13 +2,15 @@
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler, IUIHandler {
+public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler, IUIHandler, IEquipmentHandler {
 
     private Camera mainCam;
     private PlayerController player;
     private CombatManager combatManager;
     private Inventory inventory;
     private HealthBarUI playerHealthBar;
+    private InventoryEquipped inventoryEquipped;
+    private EquipmentManager equipmentManager;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -34,6 +36,11 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         inventory = GetComponent<Inventory>();
         inventory.inventoryHandler = this;
+
+        inventoryEquipped = GetComponent<InventoryEquipped>();
+        inventoryEquipped.equipmentHandler = this;
+
+        equipmentManager = GetComponent<EquipmentManager>();
 
         GetComponent<SettingsUI>().uiHandler = this;
         GetComponent<PauseMenuUI>().uiHandler = this;
@@ -97,6 +104,12 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         return player.transform.position;
     }
 
+    public void MoveItemToInventory(Item newItem)
+    {
+        Equipment tempEquipment = newItem as Equipment;
+        EquipmentManager.instance.Unequip((int)tempEquipment.equipSlot);
+    }
+
     #endregion
 
     #region Combat
@@ -113,9 +126,10 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         combatManager.EnablePlayerHealthBar();
     }
 
-    public void EngagePlayerCombat()
+    public void EngagePlayerCombat(CharacterStats enemyStats)
     {
         combatManager.enemyBeingAttacked = true;
+        combatManager.enemyStats = enemyStats;
         combatManager.enemyHealthBarUI = combatManager.enemyStats.GetComponentInChildren<HealthBarUI>();
     }
 
@@ -123,6 +137,11 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     {
         combatManager.enemyBeingAttacked = false;
         combatManager.enemyHealthBarUI = null;
+    }
+
+    public void MoveToEnemyInteractionPointLocation(Transform interactionPointLocation, float interactionStoppingDistance)
+    {
+        player.MoveToPoint(interactionPointLocation.position, interactionStoppingDistance);
     }
 
     #endregion
@@ -181,7 +200,8 @@ public interface IEnemyHandler
 {
     void SetPlayerFocus(GameObject enemy);
     void EngageCombat(CharacterStats enemyStats);
-    void EngagePlayerCombat();
+    void EngagePlayerCombat(CharacterStats enemyStats);
+    void MoveToEnemyInteractionPointLocation(Transform interactionPointLocation, float interactionStoppingDistance);
 }
 
 public interface IDeathHandler
@@ -200,6 +220,11 @@ public interface IUIHandler
     void SetEnvironmentalVolume(float newValue);
     void SetSoundtrackVolume(float newValue);
     void QuitGame();
+}
+
+public interface IEquipmentHandler
+{
+    void MoveItemToInventory(Item newItem);
 }
 
 #endregion
