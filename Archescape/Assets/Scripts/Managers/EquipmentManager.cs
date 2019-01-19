@@ -8,6 +8,13 @@ public class EquipmentManager : MonoBehaviour {
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of inventory found");
+            GameObject.Destroy(this);
+            return;
+        }
+
         instance = this;
     }
 

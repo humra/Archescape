@@ -10,6 +10,7 @@ public class InventoryEquipped : MonoBehaviour {
         if (instance != null)
         {
             Debug.LogWarning("More than one instance of equipped inventory found");
+            GameObject.Destroy(this);
             return;
         }
 
