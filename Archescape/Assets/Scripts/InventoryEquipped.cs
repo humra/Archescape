@@ -72,6 +72,11 @@ public class InventoryEquipped : MonoBehaviour {
 
         equipmentSlots[(int)unequippedEquipment.equipSlot] = null;
 
+        if(unequippedEquipment.equipSlot != EquipmentSlot.offhand && unequippedEquipment.equipSlot != EquipmentSlot.weapon)
+        {
+            EquipmentManager.instance.EquipDefaultItem(unequippedEquipment.equipSlot);
+        }
+
         UpdateUI();
     }
 }

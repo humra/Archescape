@@ -121,4 +121,16 @@ public class EquipmentManager : MonoBehaviour {
             Equip(item);
         }
     }
+
+    public void EquipDefaultItem(EquipmentSlot slot)
+    {
+        foreach(Equipment item in defaultItems)
+        {
+            if(item.equipSlot == slot)
+            {
+                Equip(item);
+                return;
+            }
+        }
+    }
 }
