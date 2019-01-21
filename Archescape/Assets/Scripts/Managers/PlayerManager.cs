@@ -9,6 +9,13 @@ public class PlayerManager : MonoBehaviour {
 
     private void Awake()
     {
+        if (instance != null)
+        {
+            Debug.LogWarning("More than one instance of player manager found");
+            GameObject.Destroy(this);
+            return;
+        }
+
         instance = this;
     }
 

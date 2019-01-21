@@ -1228,7 +1228,7 @@ MonoBehaviour:
   currentHealth: 0
   damage: 1
   armour: 0
-  attackSpeed: 2
+  attackSpeed: 1
 --- !u!114 &114188494498554494
 MonoBehaviour:
   m_ObjectHideFlags: 1

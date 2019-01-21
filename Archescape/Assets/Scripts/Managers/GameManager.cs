@@ -17,6 +17,8 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
     private void Awake()
     {
+        DontDestroyOnLoad(gameObject);
+
         player = FindObjectOfType<PlayerController>();
         player.GetComponent<PlayerStats>().deathHandler = this;
 
