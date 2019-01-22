@@ -17,8 +17,6 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
     private void Awake()
     {
-        DontDestroyOnLoad(gameObject);
-
         player = FindObjectOfType<PlayerController>();
         player.GetComponent<PlayerStats>().deathHandler = this;
 
@@ -43,6 +41,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         inventoryEquipped.equipmentHandler = this;
 
         equipmentManager = GetComponent<EquipmentManager>();
+        equipmentManager.targetMesh = player.GetComponentInChildren<SkinnedMeshRenderer>();
 
         GetComponent<SettingsUI>().uiHandler = this;
         GetComponent<PauseMenuUI>().uiHandler = this;

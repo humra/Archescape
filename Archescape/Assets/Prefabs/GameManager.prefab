@@ -24,7 +24,6 @@ GameObject:
   - component: {fileID: 114851589557529362}
   - component: {fileID: 114235896120966110}
   - component: {fileID: 114853668293943194}
-  - component: {fileID: 114093192632547332}
   - component: {fileID: 82528318702745040}
   - component: {fileID: 114057491742721924}
   - component: {fileID: 114764413903744182}
@@ -171,18 +170,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pauseMenu: {fileID: 0}
---- !u!114 &114093192632547332
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1622630378403820}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: dce9c75cd20f15643860b711f440c9a1, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  masterMixer: {fileID: 24100000, guid: 998938b547191e8479d4c65552d4bb16, type: 2}
 --- !u!114 &114227432687649058
 MonoBehaviour:
   m_ObjectHideFlags: 1

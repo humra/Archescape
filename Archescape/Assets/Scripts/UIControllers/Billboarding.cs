@@ -2,7 +2,13 @@
 
 public class Billboarding : MonoBehaviour {
 
-    public Camera mainCamera;
+    [SerializeField]
+    private Camera mainCamera;
+
+    private void Awake()
+    {
+        mainCamera = Camera.main;
+    }
 
     void LateUpdate()
     {

@@ -11,6 +11,15 @@ public class SettingsUI : MonoBehaviour {
     public IUIHandler uiHandler;
     public GameObject settingsUI;
 
+    private void Start()
+    {
+        soundtrackVolumeSlider = GameObject.FindGameObjectWithTag(UITagRepository.soundtrackVolumeSlider).GetComponent<Slider>();
+        environmentalVolumeSlider = GameObject.FindGameObjectWithTag(UITagRepository.environmentalVolumeSlider).GetComponent<Slider>();
+        settingsUI = GameObject.FindGameObjectWithTag(UITagRepository.settingsPanel);
+
+        settingsUI.SetActive(false);
+    }
+
     private void Update()
     {
         if(Input.GetKeyDown(UIKeybindRepository.pauseMenu))

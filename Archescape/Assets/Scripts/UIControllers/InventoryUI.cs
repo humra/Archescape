@@ -2,17 +2,24 @@
 
 public class InventoryUI : MonoBehaviour {
 
-    public Transform itemsParent;
-    public GameObject inventoryUI;
+    [SerializeField]
+    private GameObject itemsParent;
+    [SerializeField]
+    private GameObject inventoryUI;
 
     private Inventory inventory;
     private InventorySlot[] slots;
 
     private void Start()
     {
+        itemsParent = GameObject.FindGameObjectWithTag(UITagRepository.itemsParent);
+        inventoryUI = GameObject.FindGameObjectWithTag(UITagRepository.inventoryPanel);
+
         inventory = Inventory.instance;
         inventory.onItemChangedCallback += UpdateUI;
         slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+
+        inventoryUI.SetActive(false);
     }
 
     private void Update()

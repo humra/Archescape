@@ -9,6 +9,12 @@ TagManager:
   - SettingsPanel
   - HealthBar
   - HealthBarCanvas
+  - PlayerBodyMesh
+  - EnvironmentalVolumeSlider
+  - SoundtrackVolumeSlider
+  - ItemsParent
+  - EquipmentParent
+  - PauseMenu
   layers:
   - Default
   - TransparentFX

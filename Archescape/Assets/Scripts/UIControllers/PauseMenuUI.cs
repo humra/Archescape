@@ -3,7 +3,15 @@
 public class PauseMenuUI : MonoBehaviour
 {
     public IUIHandler uiHandler;
-    public GameObject pauseMenu;
+
+    [SerializeField]
+    private GameObject pauseMenu;
+
+    private void Start()
+    {
+        pauseMenu = GameObject.Find(UITagRepository.pauseMenu);
+        pauseMenu.SetActive(false);
+    }
 
     private void Update()
     {
