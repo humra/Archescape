@@ -40,7 +40,7 @@ GameObject:
   - component: {fileID: 114473785156062320}
   m_Layer: 5
   m_Name: OffHandEquipment
-  m_TagString: Untagged
+  m_TagString: OffHandEquipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -847,7 +847,7 @@ GameObject:
   - component: {fileID: 114435943908699274}
   m_Layer: 5
   m_Name: LegsEquipment
-  m_TagString: Untagged
+  m_TagString: LegsEquipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1684,7 +1684,7 @@ GameObject:
   - component: {fileID: 114729689537774564}
   m_Layer: 5
   m_Name: ChestEquipment
-  m_TagString: Untagged
+  m_TagString: ChestEquipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2271,7 +2271,7 @@ GameObject:
   - component: {fileID: 114634466900428716}
   m_Layer: 5
   m_Name: HeadEquipment
-  m_TagString: Untagged
+  m_TagString: HeadEquipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -2760,7 +2760,7 @@ GameObject:
   - component: {fileID: 114967525883098964}
   m_Layer: 5
   m_Name: WeaponEquipment
-  m_TagString: Untagged
+  m_TagString: WeaponEquipment
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

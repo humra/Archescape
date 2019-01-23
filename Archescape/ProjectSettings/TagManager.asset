@@ -15,6 +15,12 @@ TagManager:
   - ItemsParent
   - EquipmentParent
   - PauseMenu
+  - Inventory
+  - HeadEquipment
+  - ChestEquipment
+  - LegsEquipment
+  - OffHandEquipment
+  - WeaponEquipment
   layers:
   - Default
   - TransparentFX

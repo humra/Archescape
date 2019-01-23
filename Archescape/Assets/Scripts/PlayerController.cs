@@ -46,6 +46,11 @@ public class PlayerController : MonoBehaviour {
         target = null;
     }
 
+    public void StopMoving()
+    {
+        agent.Stop();
+    }
+
     private void FaceTarget()
     {
         Vector3 direction = (target.transform.position - transform.position).normalized;

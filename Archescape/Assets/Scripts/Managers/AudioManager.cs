@@ -3,22 +3,27 @@ using UnityEngine.Audio;
 
 public class AudioManager : MonoBehaviour {
 
-    public static AudioManager instance;
+    #region Singleton
 
-    public AudioMixer masterMixer;
+    public static AudioManager instance;
 
     private void Awake()
     {
         if (instance != null)
         {
-            Destroy(gameObject);
+            Debug.LogWarning("More than one instance of audio manager found");
+            GameObject.Destroy(gameObject);
+            return;
         }
-        else
-        {
-            instance = this;
-            DontDestroyOnLoad(gameObject);
-        }
+
+        instance = this;
+        DontDestroyOnLoad(gameObject);
     }
+
+    #endregion
+
+    public AudioMixer masterMixer;
+
 
     public void SetEnvironmentalAudioVolume(float newVolume)
     {

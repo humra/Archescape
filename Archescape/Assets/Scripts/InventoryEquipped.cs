@@ -30,6 +30,12 @@ public class InventoryEquipped : MonoBehaviour {
     private void Start()
     {
         equipmentManager = EquipmentManager.instance;
+
+        equipment[0] = GameObject.FindGameObjectWithTag(UITagRepository.headEquipment).GetComponent<InventorySlot>();
+        equipment[1] = GameObject.FindGameObjectWithTag(UITagRepository.chestEquipment).GetComponent<InventorySlot>();
+        equipment[2] = GameObject.FindGameObjectWithTag(UITagRepository.legsEquipment).GetComponent<InventorySlot>();
+        equipment[3] = GameObject.FindGameObjectWithTag(UITagRepository.weaponEquipment).GetComponent<InventorySlot>();
+        equipment[4] = GameObject.FindGameObjectWithTag(UITagRepository.offHandEquipment).GetComponent<InventorySlot>();
     }
 
     public void UpdateUI()

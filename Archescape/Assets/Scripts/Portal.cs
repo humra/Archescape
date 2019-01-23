@@ -1,13 +1,20 @@
 ﻿using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour {
+public class Portal : Interactible {
 
-    private void OnCollisionEnter(Collision collision)
+    public IPortalHandler portalHandler;
+
+    private void OnTriggerEnter(Collider other)
     {
-        if(collision.gameObject.tag.Equals(TagRepository.player))
+        if (other.gameObject.tag.Equals(TagRepository.player))
         {
-            SceneManager.LoadScene(1);
+            portalHandler.StopMoving();
         }
+    }
+
+    private void OnMouseDown()
+    {
+        portalHandler.MoveToPortal(transform);
     }
 }

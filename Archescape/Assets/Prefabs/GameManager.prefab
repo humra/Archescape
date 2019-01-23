@@ -20,7 +20,6 @@ GameObject:
   m_Component:
   - component: {fileID: 4849412334328586}
   - component: {fileID: 114227432687649058}
-  - component: {fileID: 114364212757753170}
   - component: {fileID: 114851589557529362}
   - component: {fileID: 114235896120966110}
   - component: {fileID: 114853668293943194}
@@ -28,6 +27,7 @@ GameObject:
   - component: {fileID: 114057491742721924}
   - component: {fileID: 114764413903744182}
   - component: {fileID: 114059005255186384}
+  - component: {fileID: 114426180988282142}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -41,7 +41,7 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1622630378403820}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -201,7 +201,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 81b2dfd6043fc344fa86eaa73256cd8e, type: 2}
   - {fileID: 11400000, guid: adb674a7c231c434ba62bc0e5ec98923, type: 2}
   targetMesh: {fileID: 0}
---- !u!114 &114364212757753170
+--- !u!114 &114426180988282142
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_CorrespondingSourceObject: {fileID: 0}

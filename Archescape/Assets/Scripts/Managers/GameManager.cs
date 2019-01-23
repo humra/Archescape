@@ -2,7 +2,7 @@
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
 
-public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler, IUIHandler, IEquipmentHandler {
+public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHandler, IInventoryHandler, IUIHandler, IEquipmentHandler, IPortalHandler {
 
     private Camera mainCam;
     private PlayerController player;
@@ -22,6 +22,9 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         playerHealthBar = player.GetComponentInChildren<HealthBarUI>();
 
+        equipmentManager = GetComponent<EquipmentManager>();
+        equipmentManager.targetMesh = player.GetComponentInChildren<SkinnedMeshRenderer>();
+
         InjectInterfaceIntoInteractibles();
         InjectEnemyDependencies();
     }
@@ -39,9 +42,6 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         inventoryEquipped = GetComponent<InventoryEquipped>();
         inventoryEquipped.equipmentHandler = this;
-
-        equipmentManager = GetComponent<EquipmentManager>();
-        equipmentManager.targetMesh = player.GetComponentInChildren<SkinnedMeshRenderer>();
 
         GetComponent<SettingsUI>().uiHandler = this;
         GetComponent<PauseMenuUI>().uiHandler = this;
@@ -78,6 +78,13 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         foreach(ItemPickup item in items)
         {
             item.itemHandler = this;
+        }
+
+        Portal[] portals = FindObjectsOfType<Portal>();
+
+        foreach(Portal portal in portals)
+        {
+            portal.portalHandler = this;
         }
     }
 
@@ -187,6 +194,30 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     }
 
     #endregion
+
+    #region Portals
+
+    public void MoveToPortal(Transform portalLocation)
+    {
+        player.MoveToPoint(portalLocation.position);
+    }
+
+    public void StopMoving()
+    {
+        player.StopMoving();
+    }
+
+    public void LoadScene(int sceneIndex)
+    {
+        //TO-DO
+    }
+
+    public void LoadScene(string sceneName)
+    {
+        //TO-DO
+    }
+
+    #endregion
 }
 
 #region Interfaces
@@ -226,6 +257,14 @@ public interface IUIHandler
 public interface IEquipmentHandler
 {
     void MoveItemToInventory(Item newItem);
+}
+
+public interface IPortalHandler
+{
+    void MoveToPortal(Transform portalLocation);
+    void StopMoving();
+    void LoadScene(int sceneIndex);
+    void LoadScene(string sceneName);
 }
 
 #endregion
