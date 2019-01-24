@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     private HealthBarUI playerHealthBar;
     private InventoryEquipped inventoryEquipped;
     private EquipmentManager equipmentManager;
+    private DataTransferManager dataTransferManager;
 
     [SerializeField]
     private LayerMask walkableMask;
@@ -43,9 +44,14 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         inventoryEquipped = GetComponent<InventoryEquipped>();
         inventoryEquipped.equipmentHandler = this;
 
+        dataTransferManager = GameObject.FindGameObjectWithTag(TagRepository.dataTransferManager).GetComponent<DataTransferManager>();
+
         GetComponent<SettingsUI>().uiHandler = this;
         GetComponent<PauseMenuUI>().uiHandler = this;
-	}
+
+        ReadDataTransferInventory();
+        ReadDataTransferEquipment();
+    }
 	
 	void Update () {
 
@@ -209,12 +215,69 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
     public void LoadScene(int sceneIndex)
     {
-        //TO-DO
+        FillDataTransferInventory();
+        FillDataTransferEquipment();
+
+        SceneManager.LoadScene(sceneIndex);
     }
 
     public void LoadScene(string sceneName)
     {
-        //TO-DO
+        FillDataTransferInventory();
+        FillDataTransferEquipment();
+
+        SceneManager.LoadScene(sceneName);
+    }
+
+    #endregion
+
+    #region DataTransfer
+
+    private void FillDataTransferInventory()
+    {
+        foreach(Item item in inventory.items)
+        {
+            dataTransferManager.AddInventoryItem(item);
+        }
+    }
+
+    private void FillDataTransferEquipment()
+    {
+        foreach(Equipment equipment in equipmentManager.GetCurrentEquipment())
+        {
+            dataTransferManager.AddEquipmentItem(equipment);
+        }
+    }
+
+    private void ReadDataTransferInventory()
+    {
+        if(dataTransferManager.inventory.Count == 0)
+        {
+            Debug.Log("Data Transfer Manager empty inventory!");
+            return;
+        }
+
+        foreach(Item item in dataTransferManager.inventory)
+        {
+            Inventory.instance.AddItem(item);
+        }
+    }
+
+    private void ReadDataTransferEquipment()
+    {
+        if(dataTransferManager.equipment.Count == 0)
+        {
+            Debug.Log("Data Transfer Manager empty equipment!");
+            return;
+        }
+
+        foreach(Equipment equipment in dataTransferManager.equipment)
+        {
+            if(!equipment.isDefaultItem)
+            {
+                equipment.Use();
+            }
+        }
     }
 
     #endregion

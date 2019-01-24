@@ -10,6 +10,7 @@ public class Portal : Interactible {
         if (other.gameObject.tag.Equals(TagRepository.player))
         {
             portalHandler.StopMoving();
+            portalHandler.LoadScene(1);
         }
     }
 

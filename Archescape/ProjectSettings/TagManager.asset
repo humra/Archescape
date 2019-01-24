@@ -21,6 +21,7 @@ TagManager:
   - LegsEquipment
   - OffHandEquipment
   - WeaponEquipment
+  - DataTransferManager
   layers:
   - Default
   - TransparentFX

@@ -24,7 +24,6 @@ public class AudioManager : MonoBehaviour {
 
     public AudioMixer masterMixer;
 
-
     public void SetEnvironmentalAudioVolume(float newVolume)
     {
         masterMixer.SetFloat("Environmental", Mathf.Log(newVolume) * 20);

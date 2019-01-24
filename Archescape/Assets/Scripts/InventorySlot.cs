@@ -59,7 +59,7 @@ public class InventorySlot : MonoBehaviour, IDragHandler, IEndDragHandler, IDrop
 
     public void OnDrop(PointerEventData eventData)
     {
-        RectTransform inventory = GameObject.FindWithTag(TagRepository.inventoryPanel).GetComponent<RectTransform>();
+        RectTransform inventory = GameObject.FindWithTag(UITagRepository.inventoryPanel).GetComponent<RectTransform>();
 
         if(!RectTransformUtility.RectangleContainsScreenPoint(inventory, Input.mousePosition))
         {

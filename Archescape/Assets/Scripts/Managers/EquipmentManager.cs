@@ -20,12 +20,12 @@ public class EquipmentManager : MonoBehaviour {
 
     #endregion Singleton
 
+    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
+    public OnEquipmentChanged onEquipmentChanged;
+
     private Equipment[] currentEquipment;
     private SkinnedMeshRenderer[] currentMeshes;
     private Inventory inventory;
-
-    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
-    public OnEquipmentChanged onEquipmentChanged;
 
     public Equipment[] defaultItems;
     public SkinnedMeshRenderer targetMesh;
@@ -132,5 +132,10 @@ public class EquipmentManager : MonoBehaviour {
                 return;
             }
         }
+    }
+
+    public Equipment[] GetCurrentEquipment()
+    {
+        return currentEquipment;
     }
 }
