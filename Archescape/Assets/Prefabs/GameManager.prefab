@@ -157,6 +157,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   soundtrackVolumeSlider: {fileID: 0}
   environmentalVolumeSlider: {fileID: 0}
+  resolutionDropdown: {fileID: 0}
   settingsUI: {fileID: 0}
 --- !u!114 &114059005255186384
 MonoBehaviour:

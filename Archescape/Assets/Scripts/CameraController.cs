@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.EventSystems;
 
 public class CameraController : MonoBehaviour {
 
@@ -16,6 +17,12 @@ public class CameraController : MonoBehaviour {
     }
 
     void Update () {
+
+        if(Time.timeScale == 0f)
+        {
+            return;
+        }
+
         currentZoom -= Input.GetAxis("Mouse ScrollWheel") * CameraControlsConfiguration.zoomSpeed;
         currentZoom = Mathf.Clamp(currentZoom, CameraControlsConfiguration.minZoom, CameraControlsConfiguration.maxZoom);
 
