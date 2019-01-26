@@ -26,6 +26,8 @@ public class SettingsUI : MonoBehaviour {
 
         settingsUI = GameObject.FindGameObjectWithTag(UITagRepository.settingsPanel);
 
+        LoadPlayerSettings();
+
         settingsUI.SetActive(false);
     }
 
@@ -33,7 +35,7 @@ public class SettingsUI : MonoBehaviour {
     {
         if(Input.GetKeyDown(UIKeybindRepository.pauseMenu))
         {
-            settingsUI.SetActive(!settingsUI.activeSelf);
+            ToggleShowSettings();
 
             if(settingsUI.activeSelf)
             {
@@ -43,6 +45,30 @@ public class SettingsUI : MonoBehaviour {
             {
                 Time.timeScale = 1f;
             }
+        }
+    }
+
+    private void LoadPlayerSettings()
+    {
+        environmentalVolumeSlider.value = PlayerPrefs.GetFloat(SettingValues.environmentalVolume);
+        soundtrackVolumeSlider.value = PlayerPrefs.GetFloat(SettingValues.soundtrackVolume);
+        resolutionDropdown.value = PlayerPrefs.GetInt(SettingValues.resolution);
+    }
+
+    private void SavePlayerSettings()
+    {
+        PlayerPrefs.SetFloat(SettingValues.environmentalVolume, environmentalVolumeSlider.value);
+        PlayerPrefs.SetFloat(SettingValues.soundtrackVolume, soundtrackVolumeSlider.value);
+        PlayerPrefs.SetInt(SettingValues.resolution, resolutionDropdown.value);
+    }
+
+    public void ToggleShowSettings()
+    {
+        settingsUI.SetActive(!settingsUI.activeSelf);
+
+        if(!settingsUI.activeSelf)
+        {
+            SavePlayerSettings();
         }
     }
 
@@ -89,8 +115,6 @@ public class SettingsUI : MonoBehaviour {
         }
 
         resolutionDropdown.AddOptions(options);
-        //resolutionDropdown.value = currentResolutionIndex;
-        //resolutionDropdown.RefreshShownValue();
     }
 
     private bool CheckUniqueResolutionString(string testString, List<string> existingStrings)

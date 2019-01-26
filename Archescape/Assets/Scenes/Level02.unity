@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 0}
-  m_IndirectSpecularColor: {r: 0.18028378, g: 0.22571412, b: 0.30692285, a: 1}
+  m_IndirectSpecularColor: {r: 0.18028328, g: 0.22571322, b: 0.30692163, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -226,17 +226,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1312521936283378, guid: 345d9abd7b3865c4e83579378ec37dae,
     type: 2}
   m_PrefabInternal: {fileID: 1827107947}
---- !u!1 &566175693 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1472027654360582, guid: 345d9abd7b3865c4e83579378ec37dae,
-    type: 2}
-  m_PrefabInternal: {fileID: 1827107947}
---- !u!114 &922862804 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114592892032423940, guid: 345d9abd7b3865c4e83579378ec37dae,
-    type: 2}
-  m_PrefabInternal: {fileID: 1827107947}
-  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1012572620
 GameObject:
   m_ObjectHideFlags: 0
@@ -324,12 +313,6 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1345086678 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114119126166520126, guid: 345d9abd7b3865c4e83579378ec37dae,
-    type: 2}
-  m_PrefabInternal: {fileID: 1827107947}
-  m_Script: {fileID: -113659843, guid: f70555f144d8491a825f0804e09c671c, type: 3}
 --- !u!1 &1616556432
 GameObject:
   m_ObjectHideFlags: 0
@@ -1463,6 +1446,16 @@ Prefab:
       propertyPath: m_SizeDelta.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 114318628403498498, guid: 345d9abd7b3865c4e83579378ec37dae,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 1867331683}
+    - target: {fileID: 114318628403498498, guid: 345d9abd7b3865c4e83579378ec37dae,
+        type: 2}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: QuitGame
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 345d9abd7b3865c4e83579378ec37dae, type: 2}
   m_IsPrefabAsset: 0
@@ -1524,17 +1517,17 @@ Prefab:
         type: 2}
       propertyPath: soundtrackVolumeSlider
       value: 
-      objectReference: {fileID: 922862804}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057491742721924, guid: 49a5e59560f3f3c46aaa8f47cd57c10c,
         type: 2}
       propertyPath: environmentalVolumeSlider
       value: 
-      objectReference: {fileID: 1345086678}
+      objectReference: {fileID: 0}
     - target: {fileID: 114057491742721924, guid: 49a5e59560f3f3c46aaa8f47cd57c10c,
         type: 2}
       propertyPath: settingsUI
       value: 
-      objectReference: {fileID: 566175693}
+      objectReference: {fileID: 0}
     - target: {fileID: 114235896120966110, guid: 49a5e59560f3f3c46aaa8f47cd57c10c,
         type: 2}
       propertyPath: targetMesh
@@ -1552,6 +1545,12 @@ Prefab:
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 49a5e59560f3f3c46aaa8f47cd57c10c, type: 2}
   m_IsPrefabAsset: 0
+--- !u!114 &1867331683 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 114059005255186384, guid: 49a5e59560f3f3c46aaa8f47cd57c10c,
+    type: 2}
+  m_PrefabInternal: {fileID: 1867331682}
+  m_Script: {fileID: 11500000, guid: 8a2aff73ceb15bd40af814db7619c5c7, type: 3}
 --- !u!1001 &2116655188
 Prefab:
   m_ObjectHideFlags: 0

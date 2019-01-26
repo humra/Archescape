@@ -28,6 +28,9 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         InjectInterfaceIntoInteractibles();
         InjectEnemyDependencies();
+
+        GetComponent<SettingsUI>().uiHandler = this;
+        GetComponent<PauseMenuUI>().uiHandler = this;
     }
 
     void Start () {
@@ -45,9 +48,6 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         inventoryEquipped.equipmentHandler = this;
 
         dataTransferManager = GameObject.FindGameObjectWithTag(TagRepository.dataTransferManager).GetComponent<DataTransferManager>();
-
-        GetComponent<SettingsUI>().uiHandler = this;
-        GetComponent<PauseMenuUI>().uiHandler = this;
 
         ReadDataTransferInventory();
         ReadDataTransferEquipment();
@@ -273,6 +273,12 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
         foreach(Equipment equipment in dataTransferManager.equipment)
         {
+            if(equipment == null)
+            {
+                //Weapon and offhand can be null here, so we skip that case
+                continue;
+            }
+
             if(!equipment.isDefaultItem)
             {
                 equipment.Use();
