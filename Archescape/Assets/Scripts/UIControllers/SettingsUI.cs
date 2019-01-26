@@ -16,6 +16,9 @@ public class SettingsUI : MonoBehaviour {
     public IUIHandler uiHandler;
     public GameObject settingsUI;
 
+    public delegate void OnLanguageChanged();
+    public OnLanguageChanged onLanguageChangedCallback;
+
     private void Start()
     {
         soundtrackVolumeSlider = GameObject.FindGameObjectWithTag(UITagRepository.soundtrackVolumeSlider).GetComponent<Slider>();
@@ -128,5 +131,15 @@ public class SettingsUI : MonoBehaviour {
         }
 
         return true;
+    }
+
+    public void SetLanguagePref(string language)
+    {
+        PlayerPrefs.SetString(SettingValues.language, language);
+
+        if(onLanguageChangedCallback != null)
+        {
+            onLanguageChangedCallback.Invoke();
+        }
     }
 }

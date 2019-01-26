@@ -3,7 +3,15 @@ using UnityEngine.SceneManagement;
 
 public class MainMenuManager : MonoBehaviour {
 
-	public void StartNewGame(string sceneName)
+    private void Start()
+    {
+        if(!PlayerPrefs.HasKey(SettingValues.language))
+        {
+            PlayerPrefs.SetString(SettingValues.language, "ENG");
+        }
+    }
+
+    public void StartNewGame(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }
