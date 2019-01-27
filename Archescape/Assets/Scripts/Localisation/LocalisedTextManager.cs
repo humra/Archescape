@@ -8,6 +8,12 @@ public static class LocalisedTextManager {
         {
             case "CRO":
                 return CROLocalisation.local[text];
+            case "GER":
+                return GERLocalisation.local[text];
+            case "JPN":
+                return JPNLocalisation.local[text];
+            case "RUS":
+                return RUSLocalisation.local[text];
             default:
                 return ENGLocalisation.local[text];
         }

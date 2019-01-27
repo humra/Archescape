@@ -15,11 +15,6 @@ public class Localisation : MonoBehaviour {
             text = GetComponentInChildren<Text>();
         }
 
-        if(text == null)
-        {
-            text.text = "MISSING!!!";
-        }
-
         defaultText = text.text;
 
         FindObjectOfType<SettingsUI>().onLanguageChangedCallback += Localise;
