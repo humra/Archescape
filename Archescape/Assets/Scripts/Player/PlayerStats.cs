@@ -1,9 +1,13 @@
-﻿using UnityEngine;
-
+﻿
 public class PlayerStats : CharacterStats {
 
-    private void Start()
+    public PlayerStats()
     {
+        maxHealth = 100;
+        currentHealth = maxHealth;
+        damage = 1;
+        armour = 0;
+        attackSpeed = 1f;
         EquipmentManager.instance.onEquipmentChanged += OnEquipmentChanged;
     }
 
@@ -20,11 +24,5 @@ public class PlayerStats : CharacterStats {
             armour -= oldItem.armourModifier;
             damage -= oldItem.damageModifier;
         }
-    }
-
-    public override void Die()
-    {
-        Debug.Log("Player died");
-        deathHandler.PlayerDeath();
     }
 }

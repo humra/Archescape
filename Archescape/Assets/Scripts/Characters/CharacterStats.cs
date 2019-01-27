@@ -1,36 +1,36 @@
-﻿using UnityEngine;
+﻿public class CharacterStats {
 
-public class CharacterStats : MonoBehaviour {
-
-    public int maxHealth = 10;
+    public int maxHealth;
     public int currentHealth;
     public int damage;
     public int armour;
-    public float attackSpeed = 1f;
-    public IDeathHandler deathHandler;
+    public float attackSpeed;
 
-    private void Awake()
+    public CharacterStats() { }
+
+    public CharacterStats(EnemyType type)
     {
-        currentHealth = maxHealth;
+        switch(type)
+        {
+            case EnemyType.Skeleton:
+                maxHealth = 25;
+                currentHealth = maxHealth;
+                damage = 5;
+                armour = 3;
+                attackSpeed = 1f;
+                break;
+            default:
+                break;
+        }
     }
 
     public void TakeDamage(int damageAmount)
     {
         currentHealth -= damageAmount;
-
-        if(currentHealth <= 0)
-        {
-            Die();
-        }
     }
 
     public float GetHealthPercentage()
     {
         return currentHealth / (float)maxHealth;
-    }
-
-    public virtual void Die()
-    {
-        deathHandler.EnemyDeath(gameObject);
     }
 }

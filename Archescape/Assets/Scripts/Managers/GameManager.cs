@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
     private void Awake()
     {
         player = FindObjectOfType<PlayerController>();
-        player.GetComponent<PlayerStats>().deathHandler = this;
+        player.deathHandler = this;
 
         playerHealthBar = player.GetComponentInChildren<HealthBarUI>();
 
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         mainCam = Camera.main;
 
         combatManager = GetComponent<CombatManager>();
-        combatManager.playerStats = player.GetComponent<PlayerStats>();
+        combatManager.playerStats = player.stats;
         combatManager.playerHealthBarUI = player.GetComponentInChildren<HealthBarUI>();
         combatManager.DisablePlayerHealthBar();
 
@@ -96,13 +96,12 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
     private void InjectEnemyDependencies()
     {
-        Enemy[] enemies = FindObjectsOfType<Enemy>();
+        EnemyController[] enemies = FindObjectsOfType<EnemyController>();
 
-        foreach(Enemy enemy in enemies)
+        foreach(EnemyController enemy in enemies)
         {
             enemy.enemyHandler = this;
             enemy.target = player.transform;
-            enemy.GetComponent<CharacterStats>().deathHandler = this;
         }
     }
 
@@ -133,18 +132,19 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
         player.SetTarget(enemy);
     }
 
-    public void EngageCombat(CharacterStats enemyStats)
+    public void EngageCombat(EnemyController enemy)
     {
-        combatManager.enemyStats = enemyStats;
+        combatManager.enemyStats = enemy.stats;
         combatManager.playerBeingAttacked = true;
+        combatManager.enemyHealthBarUI = enemy.GetComponentInChildren<HealthBarUI>();
         combatManager.EnablePlayerHealthBar();
     }
 
-    public void EngagePlayerCombat(CharacterStats enemyStats)
+    public void EngagePlayerCombat(EnemyController enemyToEngage)
     {
         combatManager.enemyBeingAttacked = true;
-        combatManager.enemyStats = enemyStats;
-        combatManager.enemyHealthBarUI = combatManager.enemyStats.GetComponentInChildren<HealthBarUI>();
+        combatManager.enemyStats = enemyToEngage.stats;
+        combatManager.enemyHealthBarUI = enemyToEngage.GetComponentInChildren<HealthBarUI>();
     }
 
     private void DisengagePlayerCombat()
@@ -162,10 +162,9 @@ public class GameManager : MonoBehaviour, IItemHandler, IEnemyHandler, IDeathHan
 
     #region Death
 
-    public void EnemyDeath(GameObject deadEnemy)
+    public void EnemyDeath(EnemyController enemy)
     {
-        combatManager.StopAllCombat();
-        DestroyImmediate(deadEnemy);
+        GameObject.Destroy(enemy.gameObject);
     }
 
     public void PlayerDeath()
@@ -300,14 +299,14 @@ public interface IItemHandler
 public interface IEnemyHandler
 {
     void SetPlayerFocus(GameObject enemy);
-    void EngageCombat(CharacterStats enemyStats);
-    void EngagePlayerCombat(CharacterStats enemyStats);
+    void EngageCombat(EnemyController enemy);
+    void EngagePlayerCombat(EnemyController enemyToEngage);
     void MoveToEnemyInteractionPointLocation(Transform interactionPointLocation, float interactionStoppingDistance);
+    void EnemyDeath(EnemyController enemy);
 }
 
 public interface IDeathHandler
 {
-    void EnemyDeath(GameObject deadEnemy);
     void PlayerDeath();
 }
 

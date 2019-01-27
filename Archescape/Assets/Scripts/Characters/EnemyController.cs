@@ -1,25 +1,33 @@
 ﻿using UnityEngine;
 using UnityEngine.AI;
 
-[RequireComponent(typeof(CharacterStats))]
-public class Enemy : Interactible {
+public class EnemyController : Interactible {
 
     public IEnemyHandler enemyHandler;
     public float lookRadius = 10f;
     public Transform target;
 
+    [SerializeField]
+    private EnemyType enemyType;
+
     private NavMeshAgent agent;
-    private CharacterStats myStats;
+    public CharacterStats stats;
     private bool toBeAttacked = false;
 
     private void Start()
     {
-        myStats = GetComponent<CharacterStats>();
+        stats = new CharacterStats(enemyType);
         agent = GetComponent<NavMeshAgent>();
     }
 
     private void Update()
     {
+        if(stats.currentHealth <= 0)
+        {
+            enemyHandler.EnemyDeath(this);
+            return;
+        }
+
         float distance = Vector3.Distance(target.position, transform.position);
 
         if (distance <= lookRadius)
@@ -28,14 +36,14 @@ public class Enemy : Interactible {
 
             if (distance <= agent.stoppingDistance)
             {
-                enemyHandler.EngageCombat(myStats);
+                enemyHandler.EngageCombat(this);
                 FaceTarget();
             }
         }
 
         if(distance <= interactionRadius && toBeAttacked)
         {
-            enemyHandler.EngagePlayerCombat(myStats);
+            enemyHandler.EngagePlayerCombat(this);
         }
     }
 
@@ -62,3 +70,8 @@ public class Enemy : Interactible {
         Gizmos.DrawWireSphere(transform.position, interactionRadius);
     }
 }
+
+public enum EnemyType
+{
+    Skeleton
+};

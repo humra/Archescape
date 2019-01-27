@@ -7,18 +7,29 @@ public class PlayerController : MonoBehaviour {
     private NavMeshAgent agent;
     private GameObject target;
 
+    public PlayerStats stats;
+    public IDeathHandler deathHandler;
+
 	void Start () {
         agent = GetComponent<NavMeshAgent>();
+        stats = new PlayerStats();
 	}
 	
 	void Update () {
+
+        if(stats.currentHealth <= 0)
+        {
+            deathHandler.PlayerDeath();
+            return;
+        }
+
 		if(target != null)
         {
             FaceTarget();
 
-            if(target.GetComponent<Enemy>() != null)
+            if(target.GetComponent<EnemyController>() != null)
             {
-                agent.stoppingDistance = target.GetComponent<Enemy>().interactionRadius * 0.9f;
+                agent.stoppingDistance = target.GetComponent<EnemyController>().interactionRadius * 0.9f;
                 agent.SetDestination(target.transform.position);
             }
         }
@@ -48,7 +59,7 @@ public class PlayerController : MonoBehaviour {
 
     public void StopMoving()
     {
-        agent.Stop();
+        agent.isStopped = true;
     }
 
     private void FaceTarget()
